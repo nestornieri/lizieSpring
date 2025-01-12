@@ -21,6 +21,10 @@ public class Producto {
     private Integer cantidadStock;
     private Boolean estado;
 
+    public Producto(){
+
+    }
+
     public Producto(Integer idProducto, String nombre, Integer idCategoria, String codigoBarras, String precioVenta, Integer cantidadStock, Boolean estado) {
         this.idProducto = idProducto;
         this.nombre = nombre;
