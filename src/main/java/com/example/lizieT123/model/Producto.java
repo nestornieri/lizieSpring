@@ -2,6 +2,8 @@ package com.example.lizieT123.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="productos")
 public class Producto {
@@ -11,8 +13,8 @@ public class Producto {
     @Column(name = "id_producto")
     private Integer idProducto;
     private String nombre;
-    @Column(name = "id_categoria")
-    private Integer idCategoria;
+    //@Column(name = "id_categoria")
+    //private Integer idCategoria;
     @Column(name = "codigo_barras")
     private String codigoBarras;
     @Column(name = "precio_venta")
@@ -21,18 +23,40 @@ public class Producto {
     private Integer cantidadStock;
     private Boolean estado;
 
+    @ManyToOne
+    @JoinColumn(name = "id_categoria") // Clave foránea
+    private Categoria categoria;
+            //ID, NOMBRE, LIST_PRODUCTOS
+    /*
+    @ManyToMany
+    @JoinTable(
+            name = "producto_proveedor", // Nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "id_producto"),
+            inverseJoinColumns = @JoinColumn(name = "id_proveedor"))
+    private List<Proveedor> proveedores;
+
+    */
     public Producto(){
 
     }
 
-    public Producto(Integer idProducto, String nombre, Integer idCategoria, String codigoBarras, String precioVenta, Integer cantidadStock, Boolean estado) {
+    public Producto(Integer idProducto, String nombre, String codigoBarras, String precioVenta, Integer cantidadStock, Boolean estado, Categoria categoria) {
         this.idProducto = idProducto;
         this.nombre = nombre;
-        this.idCategoria = idCategoria;
+        //this.idCategoria = idCategoria;
         this.codigoBarras = codigoBarras;
         this.precioVenta = precioVenta;
         this.cantidadStock = cantidadStock;
         this.estado = estado;
+        this.categoria = categoria;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public Integer getIdProducto() {
@@ -51,6 +75,7 @@ public class Producto {
         this.nombre = nombre;
     }
 
+    /*
     public Integer getIdCategoria() {
         return idCategoria;
     }
@@ -58,7 +83,7 @@ public class Producto {
     public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
     }
-
+    */
     public String getCodigoBarras() {
         return codigoBarras;
     }
@@ -96,7 +121,7 @@ public class Producto {
         return "Producto{" +
                 "idProducto=" + idProducto +
                 ", nombre='" + nombre + '\'' +
-                ", idCategoria=" + idCategoria +
+                //", idCategoria=" + idCategoria +
                 ", codigoBarras='" + codigoBarras + '\'' +
                 ", precioVenta='" + precioVenta + '\'' +
                 ", cantidadStock=" + cantidadStock +

@@ -1,6 +1,8 @@
 package com.example.lizieT123.controller;
 
 import com.example.lizieT123.model.Producto;
+import com.example.lizieT123.model.ProductoDTO;
+import com.example.lizieT123.service.ProductoDTOService;
 import com.example.lizieT123.service.ProductoServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,14 @@ public class ProductoController {
 
     @Autowired  //inyeccion de dependencias
     private ProductoServiceImp gatitos;
+
+    @Autowired  //inyeccion de dependencias
+    private ProductoDTOService productoDTOService;
+
+    @GetMapping("/allDTO")
+    public List<ProductoDTO> getAllProductosDTO() {
+        return productoDTOService.getAllProductos();
+    }
 
     @GetMapping("/all")
     public List<Producto> getAllProductos() {
