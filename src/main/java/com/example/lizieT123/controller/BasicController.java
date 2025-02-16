@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 /*
 Permite el scaneo por parte de spring boot, para exponer los servicios como url.
 */
-@RequestMapping("/api1")       // ... localhost:8080/api1/publico
+//@RequestMapping("/api1")       // ... localhost:8080/api1/publico
 public class BasicController {
 
     @GetMapping("/publico")
