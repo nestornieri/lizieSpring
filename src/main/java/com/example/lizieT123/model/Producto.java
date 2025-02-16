@@ -2,7 +2,6 @@ package com.example.lizieT123.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 
 @Entity
 @Table(name="productos")

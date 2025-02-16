@@ -1,4 +1,5 @@
 package com.example.lizieT123;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class MainTemp {
     public static void main(String[] args) {
@@ -11,6 +12,9 @@ public class MainTemp {
         Animal animal1 = new Animal("juancillo", "humano");
 
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode("passraul");
+        System.out.println("Contraseña encriptada: " + hashedPassword);
 
 
 
