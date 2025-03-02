@@ -47,7 +47,7 @@ public class JwtUtil {
 
     // Extraer todos los claims del token
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(getSigningKey()).build().parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token).getBody();
     }
 
     // Verificar si el token ha expirado
