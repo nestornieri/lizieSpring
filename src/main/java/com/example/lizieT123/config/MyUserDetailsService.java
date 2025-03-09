@@ -17,6 +17,21 @@ import java.util.ArrayList;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
+    private final UsuarioRepo usuarioRepository;
+
+    public MyUserDetailsService(UsuarioRepo usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+        System.out.println("🚨 Spring Security sigue llamando a UserDetailsService para: " + username);
+        return new User(usuario.getUsername(), usuario.getPassword(), new ArrayList<>());
+    }
+
+
     /*
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -30,7 +45,7 @@ public class MyUserDetailsService implements UserDetailsService {
     }
     */
 
-
+    /*
     @Autowired
     private UsuarioRepo usuarioRepo;
 
@@ -41,5 +56,5 @@ public class MyUserDetailsService implements UserDetailsService {
 
         return new User(usuario.getUsername(), usuario.getPassword(), new ArrayList<>());
     }
-
+    */
 }
