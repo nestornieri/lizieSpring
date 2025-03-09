@@ -72,7 +72,7 @@ public class SecurityConfig {
                             Authentication existingAuth = SecurityContextHolder.getContext().getAuthentication();
                             // Si ya hay autenticación del filtro JWT (HS256), respétala
                             if (existingAuth != null && existingAuth.isAuthenticated()) {
-                                System.out.println("🔍 Autenticación previa detectada: " + existingAuth);
+                                System.out.println("Autenticación previa detectada: " + existingAuth);
                                 return existingAuth;
                             }
                             // Si no, valida como token OAuth2 (RS256)

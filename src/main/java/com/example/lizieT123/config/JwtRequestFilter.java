@@ -66,43 +66,29 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             String alg = header.optString("alg");
 
             if ("HS256".equals(alg)) {
-                System.out.println("🔍 Token JWT clásico (HS256) detectado.");
+                System.out.println("Token JWT clásico (HS256) detectado.");
                 Claims claims = validateAndParseHs256Token(token);
                 processAuthentication(claims, token, request);
             } else {
-                System.out.println("🔍 Token OAuth2 (probablemente RS256) detectado, delegando a Spring Security.");
+                System.out.println("Token OAuth2 (probablemente RS256) detectado, delegando a Spring Security.");
             }
 
         } catch (Exception e) {
-            System.err.println("❌ Error al procesar el token: " + e.getMessage());
+            System.err.println("Error al procesar el token: " + e.getMessage());
         }
 
-        System.out.println("🔍 Estado de autenticación después del filtro 1: " + SecurityContextHolder.getContext().getAuthentication());
+        System.out.println("Estado de autenticación después del filtro 1: " + SecurityContextHolder.getContext().getAuthentication());
         chain.doFilter(request, response);
     }
 
     // Método para validar y parsear token HS256
     private Claims validateAndParseHs256Token(String token) {
-        try {
-            byte[] secretKeyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
-            return Jwts.parserBuilder()
-                    .setSigningKey(secretKeyBytes)
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (ExpiredJwtException e) {
-            System.out.println("Token expirado: " + e.getMessage());
-            throw e;
-        } catch (SignatureException e) {
-            System.out.println("Firma inválida: " + e.getMessage());
-            throw e;
-        } catch (MalformedJwtException e) {
-            System.out.println("Token malformado: " + e.getMessage());
-            throw e;
-        } catch (Exception e) {
-            System.out.println("Error inesperado al parsear token: " + e.getMessage());
-            throw e;
-        }
+        byte[] secretKeyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKeyBytes)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     // Método para procesar la autenticación
